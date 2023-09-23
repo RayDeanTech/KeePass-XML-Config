@@ -1,0 +1,680 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Configuration" nillable="true" type="Configuration" />
+  <xs:complexType name="Configuration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Meta" type="AceMeta" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Application" type="AceApplication" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Logging" type="AceLogging" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MainWindow" type="AceMainWindow" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UI" type="AceUI" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Security" type="AceSecurity" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Native" type="AceNative" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PasswordGenerator" type="AcePasswordGenerator" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Search" type="AceSearch" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Defaults" type="AceDefaults" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Integration" type="AceIntegration" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Custom" type="ArrayOfAceKvp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceMeta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="Version" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PreferUserConfiguration" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OmitItemsWithDefaultValues" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="0" name="DpiFactorX" type="xs:double" />
+      <xs:element minOccurs="0" maxOccurs="1" default="0" name="DpiFactorY" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceApplication">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ConfigSave" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="LanguageFile" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="HelpUseLocal" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="HelpUrl" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="LastUpdateCheck" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LastUsedFile" type="IOConnectionInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MostRecentlyUsed" type="AceMru" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="RememberWorkingDirectories" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="WorkingDirectories" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Start" type="AceStartUp" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FileOpening" type="AceOpenDb" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="VerifyWrittenFileAfterSaving" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="UseTransactedFileWrites" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="UseTransactedConfigWrites" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="FileTxExtra" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="UseFileLocks" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SaveForceSync" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoSaveAfterEntryEdit" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FileClosing" type="AceCloseDb" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TriggerSystem" type="EcasTriggerSystem" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="PluginCachePath" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PluginCompatibility" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" default="7" name="ExpirySoonDays" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IOConnectionInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Path" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="UserName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="Password" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CredProtMode" type="IOCredProtMode" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CredSaveMode" type="IOCredSaveMode" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="PropertiesEx" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="IOCredProtMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Obf" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IOCredSaveMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoSave" />
+      <xs:enumeration value="UserNameOnly" />
+      <xs:enumeration value="SaveCred" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AceMru">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="MaxItemCount" type="xs:unsignedInt" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Items" type="ArrayOfIOConnectionInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfIOConnectionInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ConnectionInfo" nillable="true" type="IOConnectionInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceStartUp">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="OpenLastFile" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CheckForUpdate" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="CheckForUpdateConfigured" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="MinimizedAndLocked" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="PluginCacheDeleteOld" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="PluginCacheClearOnce" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceOpenDb">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ShowExpiredEntries" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ShowSoonToExpireEntries" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceCloseDb">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoSave" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EcasTriggerSystem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="Enabled" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Triggers" type="ArrayOfEcasTrigger" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfEcasTrigger">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Trigger" nillable="true" type="EcasTrigger" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EcasTrigger">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Guid" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="Comments" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="Enabled" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="InitiallyOn" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="TurnOffAfterAction" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Events" type="ArrayOfEcasEvent" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Conditions" type="ArrayOfEcasCondition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Actions" type="ArrayOfEcasAction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfEcasEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Event" nillable="true" type="EcasEvent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EcasEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="TypeGuid" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Parameters" type="ArrayOfString1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString1">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Parameter" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfEcasCondition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Condition" nillable="true" type="EcasCondition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EcasCondition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="TypeGuid" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Parameters" type="ArrayOfString1" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Negate" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfEcasAction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Action" nillable="true" type="EcasAction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EcasAction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="TypeGuid" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Parameters" type="ArrayOfString1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceLogging">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="Enabled" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceMainWindow">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="X" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Y" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Width" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Height" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="Maximized" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SplitterHorizontalFrac" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SplitterVerticalFrac" type="xs:double" />
+      <xs:element minOccurs="0" maxOccurs="1" default="Default" name="Layout" type="AceMainWindowLayout" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AlwaysOnTop" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="CloseButtonMinimizesWindow" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="EscMinimizesToTray" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="Lock" name="EscAction" type="AceEscAction" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="MinimizeToTray" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ShowFullPathInTitle" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="DropToBackAfterClipboardCopy" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="MinimizeAfterClipboardCopy" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="MinimizeAfterAutoType" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="MinimizeAfterLocking" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="MinimizeAfterOpeningDatabase" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="QuickFindSearchInPasswords" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="QuickFindExcludeExpired" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="QuickFindDerefData" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="FocusResultsAfterQuickFind" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="FocusQuickFindOnRestore" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="FocusQuickFindOnUntray" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="CopyUrlsInsteadOfOpening" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="EntrySelGroupSel" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="DisableSaveIfNotModified" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="HideCloseDatabaseButton" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ToolBar" type="AceToolBar" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EntryView" type="AceEntryView" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TanView" type="AceTanView" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EntryListColumnCollection" type="ArrayOfAceColumn" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="EntryListColumnDisplayOrder" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="EntryListAutoResizeColumns" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="EntryListAlternatingBgColors" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="0" name="EntryListAlternatingBgColor" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="EntryListShowDerefData" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="EntryListShowDerefDataAsync" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="EntryListShowDerefDataAndRefs" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ListSorting" type="ListSorter" />
+      <xs:element minOccurs="0" maxOccurs="1" default="0" name="ListGrouping" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ShowEntriesOfSubGroups" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AceMainWindowLayout">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="SideBySide" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AceEscAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Lock" />
+      <xs:enumeration value="Minimize" />
+      <xs:enumeration value="MinimizeToTray" />
+      <xs:enumeration value="Exit" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AceToolBar">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="Show" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceEntryView">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="Show" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceTanView">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="UseSimpleView" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ShowIndices" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfAceColumn">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Column" nillable="true" type="AceColumn" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceColumn">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Type" type="AceColumnType" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="CustomName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Width" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="HideWithAsterisks" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AceColumnType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Title" />
+      <xs:enumeration value="UserName" />
+      <xs:enumeration value="Password" />
+      <xs:enumeration value="Url" />
+      <xs:enumeration value="Notes" />
+      <xs:enumeration value="CreationTime" />
+      <xs:enumeration value="LastModificationTime" />
+      <xs:enumeration value="LastAccessTime" />
+      <xs:enumeration value="ExpiryTime" />
+      <xs:enumeration value="Uuid" />
+      <xs:enumeration value="Attachment" />
+      <xs:enumeration value="CustomString" />
+      <xs:enumeration value="PluginExt" />
+      <xs:enumeration value="OverrideUrl" />
+      <xs:enumeration value="Tags" />
+      <xs:enumeration value="ExpiryTimeDateOnly" />
+      <xs:enumeration value="Size" />
+      <xs:enumeration value="HistoryCount" />
+      <xs:enumeration value="AttachmentCount" />
+      <xs:enumeration value="LastPasswordModTime" />
+      <xs:enumeration value="AutoTypeEnabled" />
+      <xs:enumeration value="AutoTypeSequences" />
+      <xs:enumeration value="Count" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ListSorter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="-1" name="Column" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Order" type="SortOrder" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="CompareNaturally" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="CompareTimes" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SortOrder">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Ascending" />
+      <xs:enumeration value="Descending" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AceUI">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="TrayIcon" type="AceTrayIcon" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Hiding" type="AceHiding" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="RepeatPasswordOnlyWhenHidden" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StandardFont" type="AceFont" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PasswordFont" type="AceFont" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ForceSystemFontUnix" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="BannerStyle" type="BannerStyle" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ShowImportStatusDialog" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ShowRecycleConfirmDialog" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ShowDbMntncResultsDialog" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ShowEmSheetDialog" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ShowDbOpenUnkVerDialog" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="ToolStripRenderer" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="TreeViewShowLines" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="OptimizeForScreenReader" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="DataViewerRect" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="DataEditorRect" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DataEditorFont" type="AceFont" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="DataEditorWordWrap" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="CharPickerRect" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="AutoTypeCtxRect" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="43" name="AutoTypeCtxFlags" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="AutoTypeCtxColumnWidths" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="UIFlags" type="xs:unsignedLong" />
+      <xs:element minOccurs="1" maxOccurs="1" name="KeyCreationFlags" type="xs:unsignedLong" />
+      <xs:element minOccurs="1" maxOccurs="1" name="KeyPromptFlags" type="xs:unsignedLong" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ShowAdvAutoTypeCommands" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SecureDesktopPlaySound" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceTrayIcon">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ShowOnlyIfTrayedEx" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="GrayIcon" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SingleClickDefault" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceHiding">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="RememberHidingPasswordsMain" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SeparateHidingSettings" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="HideInEntryWindow" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="UnhideButtonAlsoUnhidesSource" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceFont">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Family" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Size" type="xs:float" />
+      <xs:element minOccurs="1" maxOccurs="1" name="GraphicsUnit" type="GraphicsUnit" />
+      <xs:element minOccurs="0" maxOccurs="1" default="Regular" name="Style" type="FontStyle" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OverrideUIDefault" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="GraphicsUnit">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="World" />
+      <xs:enumeration value="Display" />
+      <xs:enumeration value="Pixel" />
+      <xs:enumeration value="Point" />
+      <xs:enumeration value="Inch" />
+      <xs:enumeration value="Document" />
+      <xs:enumeration value="Millimeter" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FontStyle">
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Regular" />
+          <xs:enumeration value="Bold" />
+          <xs:enumeration value="Italic" />
+          <xs:enumeration value="Underline" />
+          <xs:enumeration value="Strikeout" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:simpleType name="BannerStyle">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="Blue" />
+      <xs:enumeration value="Dark" />
+      <xs:enumeration value="Light" />
+      <xs:enumeration value="BlueCarbon" />
+      <xs:enumeration value="WinXPLogin" />
+      <xs:enumeration value="WinVistaBlack" />
+      <xs:enumeration value="KeePassWin32" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AceSecurity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="WorkspaceLocking" type="AceWorkspaceLocking" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Policy" type="AppPolicyFlags" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MasterPassword" type="AceMasterPassword" />
+      <xs:element minOccurs="0" maxOccurs="1" default="3" name="MasterKeyTries" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="MasterKeyOnSecureDesktop" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="MasterKeyExpiryRec" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ClipboardClearOnExit" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="12" name="ClipboardClearAfterSeconds" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ClipboardNoPersist" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="UseClipboardViewerIgnoreFormat" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ClearKeyCommandLineParams" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SslCertsAcceptInvalid" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="PreventScreenCapture" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ProtectProcessWithDacl" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceWorkspaceLocking">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="LockOnWindowMinimize" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="LockOnWindowMinimizeToTray" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="LockOnSessionSwitch" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="LockOnSuspend" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="LockOnRemoteControlChange" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LockAfterTime" type="xs:unsignedInt" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LockAfterGlobalTime" type="xs:unsignedInt" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ExitInsteadOfLockingAfterTime" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AlwaysExitInsteadOfLocking" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AppPolicyFlags">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="Plugins" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="Export" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="Import" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="Print" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="PrintNoKey" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="NewFile" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SaveFile" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="AutoType" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="AutoTypeWithoutContext" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="CopyToClipboard" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="CopyWholeEntries" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="DragDrop" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="UnhidePasswords" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ChangeMasterKey" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ChangeMasterKeyNoKey" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="EditTriggers" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceMasterPassword">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="MinimumLength" type="xs:unsignedInt" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MinimumQuality" type="xs:unsignedInt" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="RememberWhileOpen" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceNative">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="NativeKeyTransformations" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AcePasswordGenerator">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="ProfilesEnabled" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AutoGeneratedPasswordsProfile" type="PwProfile" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UserProfiles" type="ArrayOfPwProfile" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PwProfile">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="Name" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="GeneratorType" type="PasswordGeneratorType" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="CollectUserEntropy" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Length" type="xs:unsignedInt" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="CharSetRanges" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="CharSetAdditional" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="Pattern" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="PatternPermutePassword" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ExcludeLookAlike" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="NoRepeatingCharacters" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="ExcludeCharacters" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="CustomAlgorithmUuid" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="CustomAlgorithmOptions" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PasswordGeneratorType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CharSet" />
+      <xs:enumeration value="Pattern" />
+      <xs:enumeration value="Custom" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfPwProfile">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Profile" nillable="true" type="PwProfile" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceSearch">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="LastUsedProfile" type="SearchParameters" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UserProfiles" type="ArrayOfSearchParameters" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchParameters">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="SearchString" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SearchMode" type="PwSearchMode" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SearchInTitles" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SearchInUserNames" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SearchInPasswords" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SearchInUrls" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SearchInNotes" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SearchInOther" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SearchInStringNames" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SearchInTags" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SearchInUuids" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SearchInGroupPaths" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SearchInGroupNames" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SearchInHistory" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ComparisonMode" type="StringComparison" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ExcludeExpired" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="RespectEntrySearchingDisabled" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="DataTransformation" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PwSearchMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Simple" />
+      <xs:enumeration value="Regular" />
+      <xs:enumeration value="XPath" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringComparison">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CurrentCulture" />
+      <xs:enumeration value="CurrentCultureIgnoreCase" />
+      <xs:enumeration value="InvariantCulture" />
+      <xs:enumeration value="InvariantCultureIgnoreCase" />
+      <xs:enumeration value="Ordinal" />
+      <xs:enumeration value="OrdinalIgnoreCase" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfSearchParameters">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Profile" nillable="true" type="SearchParameters" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceDefaults">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="-1" name="NewEntryExpiresInDays" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OptionsTabIndex" type="xs:unsignedInt" />
+      <xs:element minOccurs="0" maxOccurs="1" default="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-" name="TanCharacters" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="TanExpiresOnUse" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="FileSaveAsDirectory" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="RememberKeySources" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="KeySources" type="ArrayOfAceKeyAssoc" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="CustomColors" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ExportMasterKeySpec" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ExportParentGroups" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ExportPostOpen" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="ExportPostShow" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="WinFavsBaseFolderName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="WinFavsFileNamePrefix" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="WinFavsFileNameSuffix" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="RecycleBinCollapse" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfAceKeyAssoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Association" nillable="true" type="AceKeyAssoc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceKeyAssoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="DatabasePath" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="Password" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="KeyFilePath" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="KeyProvider" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="UserAccount" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceIntegration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" default="393281" name="HotKeyGlobalAutoType" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" default="458817" name="HotKeyGlobalAutoTypePassword" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" default="0" name="HotKeySelectedAutoType" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" default="393291" name="HotKeyShowWindow" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" default="0" name="HotKeyEntryMenu" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="CheckHotKeys" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="UrlOverride" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="UrlOverrideEnabled" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UrlSchemeOverrides" type="AceUrlSchemeOverrides" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="SearchKeyFiles" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="SearchKeyFilesOnRemovableMedia" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="LimitToSingleInstance" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="AutoTypeMatchByTitle" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoTypeMatchByUrlInTitle" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoTypeMatchByUrlHostInTitle" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoTypeMatchByTagInTitle" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="AutoTypeMatchNormDashes" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoTypeExpiredCanMatch" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoTypeAlwaysShowSelDialog" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="AutoTypePrependInitSequenceForIE" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="AutoTypeReleaseAltWithKeyPress" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="true" name="AutoTypeAdjustKeyboardLayout" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoTypeAllowInterleaved" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoTypeCancelOnWindowChange" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="false" name="AutoTypeCancelOnTitleChange" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" default="-1" name="AutoTypeInterKeyDelay" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AutoTypeAbortOnWindows" type="ArrayOfString2" />
+      <xs:element minOccurs="0" maxOccurs="1" default="System" name="ProxyType" type="ProxyServerType" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="ProxyAddress" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="ProxyPort" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="Auto" name="ProxyAuthType" type="ProxyAuthType" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="ProxyUserName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" default="" name="ProxyPassword" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceUrlSchemeOverrides">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="BuiltInOverridesEnabled" type="xs:unsignedLong" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CustomOverrides" type="ArrayOfAceUrlSchemeOverride" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfAceUrlSchemeOverride">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Override" nillable="true" type="AceUrlSchemeOverride" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceUrlSchemeOverride">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Enabled" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Scheme" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UrlOverride" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString2">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Window" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ProxyServerType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="System" />
+      <xs:enumeration value="Manual" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProxyAuthType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="Manual" />
+      <xs:enumeration value="Auto" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfAceKvp">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="AceKvp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AceKvp">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Key" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
